@@ -20,7 +20,10 @@ export class UserService {
     // Find the user by email
     const user = await UserModel.findOne({ email });
     if (!user) {
-      throw new AppError(httpStatus.NOT_FOUND, "User not found with the email"); // user not found
+      throw new AppError(
+        httpStatus.UNAUTHORIZED,
+        "User not found with the email"
+      ); // user not found
     }
     // Compare the provided password with the hashed password stored in the database
     const isPasswordMatch = await bcrypt.compare(password, user.password);
