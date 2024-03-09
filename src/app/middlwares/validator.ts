@@ -29,7 +29,7 @@ const userSchema = Joi.object({
     .min(6)
     .max(100)
     .required()
-    .error(new Error("Password must be between 6 and 100 characters")),
+    .error(new Error("Password must be between 6 to 100 characters")),
   name: Joi.string().required().error(new Error("Name is required")),
 }).options({ abortEarly: false });
 const StudySessionValidator = {

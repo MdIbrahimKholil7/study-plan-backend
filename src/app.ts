@@ -5,7 +5,7 @@ import express, {
   Request,
   Response,
 } from "express";
-const app: Application = express();
+export const app: Application = express();
 import cors from "cors";
 import morgan from "morgan";
 import httpStatus from "http-status";

@@ -49,6 +49,21 @@
             "date": 1710000206096,
             "name": "G:\\job-task\\study-plan-programming-hero\\study-plan-backend\\logs\\winston\\errors\\st-plan-2024-09-03-22-error.log",
             "hash": "4e1e4a13a2fef0aa09b10b2073c31010bec106b76cc41bf71f6a52a55b4a493e"
+        },
+        {
+            "date": 1710003645345,
+            "name": "G:\\job-task\\study-plan-programming-hero\\study-plan-backend\\logs\\winston\\errors\\st-plan-2024-09-03-23-error.log",
+            "hash": "e9ba05a56d8eff01fcd9ee68c7ac5b5d1f7bb3af69b6f8f1b2e6fd13418a4315"
+        },
+        {
+            "date": 1710007574220,
+            "name": "G:\\job-task\\study-plan-programming-hero\\study-plan-backend\\logs\\winston\\errors\\st-plan-2024-10-03-00-error.log",
+            "hash": "c4742fa464e6dc3a921fb77bada7abfb4a9c26493d91416530fa7f157bdc6791"
+        },
+        {
+            "date": 1710012816780,
+            "name": "G:\\job-task\\study-plan-programming-hero\\study-plan-backend\\logs\\winston\\errors\\st-plan-2024-10-03-01-error.log",
+            "hash": "c2f397dc3f6c00f35f1dbbb5c28ba5aa5cf0de96e36f514fdd0cd1ddffe30113"
         }
     ],
     "hashType": "sha256"

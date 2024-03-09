@@ -28,7 +28,9 @@ class StudyService {
           userId: 1,
           studySessions: {
             $map: {
-              input: "$studySessions",
+              input: {
+                $slice: ["$studySessions", 0, 2], // Limit the study sessions to 7 items
+              },
               in: {
                 subject: "$$this.subject",
                 duration: "$$this.duration",
@@ -37,7 +39,7 @@ class StudyService {
                 updatedAt: "$$this.updatedAt",
               },
             },
-          }, // Project only the subject, duration, and priority fields from the study sessions
+          },
         },
       },
     ] as any;
