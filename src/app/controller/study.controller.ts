@@ -15,6 +15,16 @@ class StudyController {
       data: result,
     });
   });
+
+  static getStudySession = catchAsync(async (req: Request, res: Response) => {
+    const result = await StudyService.getStudyPlan(req?.user?._id);
+    sendResponse<StudySession[]>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Study session fetched successfully",
+      data: result,
+    });
+  });
 }
 
 export default StudyController;
