@@ -9,12 +9,13 @@ const app: Application = express();
 import cors from "cors";
 import morgan from "morgan";
 import httpStatus from "http-status";
+import router from "./routes";
 app.use(cors());
 app.use(morgan("dev"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use("/api/v1/", router);
 app.use(
   (
     error: { message: any },
@@ -41,6 +42,5 @@ app.use((req: Request, res: Response, next: NextFunction) => {
       },
     ],
   });
-  next();
 });
 export default app;
