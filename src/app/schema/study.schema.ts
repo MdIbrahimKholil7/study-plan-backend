@@ -18,6 +18,8 @@ const studySessionSchema = new Schema<StudySession>(
     },
     priority: {
       type: Number,
+      enum: [1, 2, 3],
+      default: 1,
       required: true,
     },
   },
@@ -25,7 +27,15 @@ const studySessionSchema = new Schema<StudySession>(
     timestamps: true,
   }
 );
-
+// Pre-save hook to convert hours to minutes
+studySessionSchema.pre<StudySession>("save", async function (next) {
+  try {
+    this.duration = this.duration * 60; //converting into minutes
+    next();
+  } catch (error: any) {
+    next(error); // Explicitly specify the error type
+  }
+});
 const SessionModel = model<StudySession, StudySessionModel>(
   "studySession",
   studySessionSchema
