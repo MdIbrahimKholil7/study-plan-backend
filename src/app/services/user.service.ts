@@ -6,11 +6,11 @@ import bcrypt from "bcrypt";
 class UserService {
   static createUserService = async (data: User): Promise<User | null> => {
     const user = await UserModel.create(data);
-    console.log({ user });
+
     if (!user) {
       throw new Error("Failed to create user");
     }
-    return user;
+    return user.toObject();
   };
 
   static loginUserService = async (

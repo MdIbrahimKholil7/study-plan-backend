@@ -24,13 +24,18 @@ class UserController {
       });
     }
     // Destructure userData
-
+    const { password, ...data } = userData;
+    const token = jwtHelpers.createToken(
+      data,
+      config.jwt.secret as Secret,
+      config.jwt.expires_in as string
+    );
     // Send success response
     sendResponse<UserResponse>(res, {
       statusCode: httpStatus.CREATED,
       success: true,
       message: "User created successfully",
-      data: userData,
+      data: { ...data, accessToken: token },
     });
   });
   static loginUser = catchAsync(async (req: Request, res: Response) => {
@@ -54,7 +59,7 @@ class UserController {
       config.jwt.secret as Secret,
       config.jwt.expires_in as string
     );
-    console.log({ token });
+
     // Send success response
     sendResponse<UserResponse>(res, {
       statusCode: httpStatus.OK,
