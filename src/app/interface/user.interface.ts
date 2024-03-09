@@ -6,4 +6,5 @@ export type User = {
 export type UserResponse = {
   name: string;
   email: string;
+  accessToken?: string;
 };

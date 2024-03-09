@@ -30,7 +30,7 @@ class UserService {
     if (!isPasswordMatch) {
       throw new AppError(httpStatus.UNAUTHORIZED, "Password not match"); // Passwords do not match
     }
-    return user; // Return the user if login successful
+    return user.toObject(); // Return the user if login successful
   };
 }
 

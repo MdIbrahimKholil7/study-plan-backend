@@ -5,6 +5,9 @@ import catchAsync from "../../shared/catchAsync";
 import { UserResponse } from "../interface/user.interface";
 import httpStatus from "http-status";
 import sendResponse from "../../shared/response";
+import { jwtHelpers } from "../helpers/jwt.helper";
+import config from "../../config/config";
+import { Secret } from "jsonwebtoken";
 
 class UserController {
   static createUser = catchAsync(async (req: Request, res: Response) => {
@@ -45,14 +48,19 @@ class UserController {
         data: null,
       });
     }
-    // Destructure userData
     const { password, ...data } = userData;
+    const token = jwtHelpers.createToken(
+      data,
+      config.jwt.secret as Secret,
+      config.jwt.expires_in as string
+    );
+    console.log({ token });
     // Send success response
     sendResponse<UserResponse>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: "Login successful",
-      data: userData,
+      data: { ...data, accessToken: token },
     });
   });
 }
