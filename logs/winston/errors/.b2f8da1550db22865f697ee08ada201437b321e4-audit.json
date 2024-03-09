@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "G:\\job-task\\study-plan-programming-hero\\study-plan-backend\\logs\\winston\\errors\\.b2f8da1550db22865f697ee08ada201437b321e4-audit.json",
+    "files": [
+        {
+            "date": 1709961935413,
+            "name": "G:\\job-task\\study-plan-programming-hero\\study-plan-backend\\logs\\winston\\errors\\st-plan-2024-09-03-11-error.log",
+            "hash": "0b4b579ef84f4fee52264165bc47b45236b4a9b5bd570387ac233b61b396cd81"
+        }
+    ],
+    "hashType": "sha256"
+}
