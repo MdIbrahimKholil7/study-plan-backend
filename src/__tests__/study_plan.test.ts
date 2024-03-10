@@ -4,9 +4,12 @@ import StudyService from "../app/services/study.service"; // Import StudyService
 import SessionModel from "../app/schema/study.schema"; // Import the SessionModel
 import jwt from "jsonwebtoken";
 // Mock the StudyService
-jest.mock("../app/services/study.service", () => ({
+jest.mock(
+  "../app/services/study.service" /* () => ({
   createStudyPlan: jest.fn(),
-}));
+  getStudyPlan: jest.fn(),
+}) */
+);
 
 // Mock the SessionModel
 jest.mock("../app/schema/study.schema", () => ({
@@ -64,5 +67,58 @@ describe("Study Controller", () => {
       message: "Study session created successfully",
       data: createdStudySession,
     });
+  });
+
+  it("should return study sessions for authenticated user", async () => {
+    // Mock the decoded user ID from the JWT token
+    const userId = "user_id";
+    (jwt.verify as jest.Mock).mockReturnValue({ _id: userId });
+
+    // Mock the study sessions data
+    const studySessions = [
+      {
+        _id: "session_id_1",
+        user: userId,
+        subject: "Math",
+        duration: 60,
+        priority: 1,
+        createdAt: new Date().toString(),
+        updatedAt: new Date().toString(),
+      },
+      {
+        _id: "session_id_2",
+        user: userId,
+        subject: "Science",
+        duration: 90,
+        priority: 2,
+        createdAt: new Date().toString(),
+        updatedAt: new Date().toString(),
+      },
+    ];
+
+    // Mock the StudyService to return study sessions
+    (StudyService.getStudyPlan as jest.Mock).mockResolvedValue(studySessions);
+
+    // Make a GET request to the study sessions route
+    const res = await request(app)
+      .get("/api/v1/study")
+      .set("Authorization", "Bearer valid_token");
+
+    // Expect the response status code to be 200
+    expect(res.status).toBe(200);
+
+    // Expect the response data to contain the study sessions
+    expect(res.body).toEqual({
+      statusCode: 200,
+      success: true,
+      message: "Study session fetched successfully",
+      data: studySessions,
+    });
+
+    // Ensure that JWT token verification was called with the correct token
+    expect(jwt.verify).toHaveBeenCalledWith("valid_token", expect.any(String));
+
+    // Ensure that StudyService.getStudyPlan was called with the correct user ID
+    expect(StudyService.getStudyPlan).toHaveBeenCalledWith(userId);
   });
 });
