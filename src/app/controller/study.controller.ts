@@ -8,6 +8,7 @@ import sendResponse from "../../shared/response";
 class StudyController {
   static createStudyPlan = catchAsync(async (req: Request, res: Response) => {
     const result = await StudyService.createStudyPlan(req.body);
+
     sendResponse<StudySession>(res, {
       statusCode: httpStatus.CREATED,
       success: true,
