@@ -1,6 +1,7 @@
 import app from "../app"; // Assuming your Express app is exported from 'app.ts'
 import { UserService } from "../app/services/user.service"; // Import UserService
 import supertest from "supertest";
+import { AppError } from "../error/error";
 
 // Mock the UserService
 jest.mock("../app/services/user.service", () => ({
@@ -162,6 +163,36 @@ describe("User Controller", () => {
       expect(res.body).toEqual({
         success: false,
         message: "Login failed",
+      });
+
+      // Ensure that UserService.loginUserService was called with the provided credentials
+      expect(UserService.loginUserService).toHaveBeenCalledWith(
+        email,
+        password
+      );
+    });
+    it("should fail to login with wrong password", async () => {
+      // Mock the user credentials
+      const email = "test@example.com";
+      const password = "wrongpassword";
+
+      // Mock UserService.loginUserService to throw an error for incorrect password
+      (UserService.loginUserService as jest.Mock).mockRejectedValue(
+        new AppError(500, "Password incorrect")
+      );
+
+      // Make a POST request to the login route with incorrect password
+      const res = await supertest(app)
+        .post("/api/v1/user/login")
+        .send({ email, password });
+
+      // Expect the response status code to be 401 (Unauthorized)
+      expect(res.status).toBe(500);
+
+      // Expect the response data to contain an error message
+      expect(res.body).toEqual({
+        success: false,
+        message: "Password incorrect",
       });
 
       // Ensure that UserService.loginUserService was called with the provided credentials
